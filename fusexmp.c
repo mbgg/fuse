@@ -49,7 +49,7 @@ static int xmp_access(const char *path, int mask)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "access:%s:%d\n", path, mask);
+	sprintf(data, "access:%s:%d:\n", path, mask);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("access\n");
@@ -66,7 +66,7 @@ static int xmp_readlink(const char *path, char *buf, size_t size)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "readlink:%s:%d\n", path, (int) size);
+	sprintf(data, "readlink:%s:%d:\n", path, (int) size);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 	//log_log("readlink\n");
@@ -87,7 +87,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	struct dirent *de;
 	
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "readdir:%s:%d\n", path, (int) offset);
+	sprintf(data, "readdir:%s:%d:\n", path, (int) offset);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 	//log_log("readdir\n");
@@ -117,7 +117,7 @@ static int xmp_mknod(const char *path, mode_t mode, dev_t rdev)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "mknod:%s:%d\n", path, mode);
+	sprintf(data, "mknod:%s:%d:\n", path, mode);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 	//log_log("mknod\n");
@@ -143,7 +143,7 @@ static int xmp_mkdir(const char *path, mode_t mode)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "mkdir:%s:%d\n", path, mode);
+	sprintf(data, "mkdir:%s:%d:\n", path, mode);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("mkdir\n");
@@ -160,7 +160,7 @@ static int xmp_unlink(const char *path)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "unlink:%s\n", path);
+	sprintf(data, "unlink:%s::\n", path);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("unlink\n");
@@ -177,7 +177,7 @@ static int xmp_rmdir(const char *path)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "rmdir:%s\n", path);
+	sprintf(data, "rmdir:%s::\n", path);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("rmdir\n");
@@ -194,7 +194,7 @@ static int xmp_symlink(const char *from, const char *to)
 	int res;
 
 	char *data = malloc(strlen(from)+strlen(to)+100);
-	sprintf(data, "symlink:%s:%s\n", from, to);
+	sprintf(data, "symlink:%s:%s:\n", from, to);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("symlink\n");
@@ -211,7 +211,7 @@ static int xmp_rename(const char *from, const char *to)
 	int res;
 
 	char *data = malloc(strlen(from)+strlen(to)+100);
-	sprintf(data, "rename:%s:%s\n", from, to);
+	sprintf(data, "rename:%s:%s:\n", from, to);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("rename\n");
@@ -228,7 +228,7 @@ static int xmp_link(const char *from, const char *to)
 	int res;
 
 	char *data = malloc(strlen(from)+strlen(to)+100);
-	sprintf(data, "link:%s:%s\n", from, to);
+	sprintf(data, "link:%s:%s:\n", from, to);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("link\n");
@@ -245,7 +245,7 @@ static int xmp_chmod(const char *path, mode_t mode)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "chmod:%s:%d\n", path, mode);
+	sprintf(data, "chmod:%s:%d:\n", path, mode);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 //	log_log("chmod\n");
@@ -279,7 +279,7 @@ static int xmp_truncate(const char *path, off_t size)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "truncate:%s:%d\n", path, (int) size);
+	sprintf(data, "truncate:%s:%d:\n", path, (int) size);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 
@@ -312,7 +312,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
 	int res;
 
 	char *data = malloc(strlen(path)+100);
-	sprintf(data, "open:%s\n", path);
+	sprintf(data, "open:%s::\n", path);
 	log_log(data, fuse_get_context()->pid);
 	free(data);
 
@@ -398,7 +398,7 @@ static int xmp_release(const char *path, struct fuse_file_info *fi)
 static int xmp_fsync(const char *path, int isdatasync,
 		     struct fuse_file_info *fi)
 {
-	char data[] = "fsync\n";
+	char data[] = "fsync:::\n";
 	log_log(data, fuse_get_context()->pid);
 
 	/* Just a stub.	 This method is optional and can safely be left

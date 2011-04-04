@@ -97,7 +97,7 @@ int log_open_fifo()
 	gettimeofday(&otv, NULL);
 
 	printf("log_open_fifo\n");
-	fd = open(FUSE_LOG, O_WRONLY);
+	fd = open(FUSE_LOG, O_WRONLY|O_CREAT, S_IRWXU|S_IRWXG );
 	printf("fd is %d\n", fd);
 	return 0;
 }
@@ -113,7 +113,7 @@ int log_log(char *data, int pid)
 	if(log_time_diff(ntv, &difftv))
 			sprintf(string, "not able to calc tdiff: %d.%.6d - %d.%.6d\n", otv.tv_sec, otv.tv_usec, ntv.tv_sec, ntv.tv_usec);
 
-	sprintf(string, "%d@%d.%.6d:%s", pid, difftv.tv_sec, difftv.tv_usec, data);
+	sprintf(string, "%d:%d.%.6d:%s", pid, difftv.tv_sec, difftv.tv_usec, data);
 	//sprintf(string, "%d@%d.%.6d # %d.%.6d - %d.%.6d\n", pid, difftv.tv_sec, difftv.tv_usec, ntv.tv_sec, ntv.tv_usec, otv.tv_sec, otv.tv_usec);
 
 	ret = write(fd, string, strlen(string));
